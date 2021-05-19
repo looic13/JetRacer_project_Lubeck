@@ -4,9 +4,13 @@ import torch.nn.functional as F
 import cv2
 import PIL.Image
 import numpy as np
+from meanstd import get_meanstd
+meann,stdd=get_meanstd('road_following_orange_line')
+mean=meann.cuda()
+std=stdd.cuda()
+#mean = torch.Tensor([0.485, 0.456, 0.406]).cuda()
+#std = torch.Tensor([0.229, 0.224, 0.225]).cuda()
 
-mean = torch.Tensor([0.485, 0.456, 0.406]).cuda()
-std = torch.Tensor([0.229, 0.224, 0.225]).cuda()
 
 def preprocess(image):
     device = torch.device('cuda')
