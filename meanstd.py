@@ -5,7 +5,6 @@ from torchvision import datasets, transforms
 def get_meanstd(datadir):
     train_transforms = transforms.Compose([
                 transforms.Resize((224, 224)),
-                transforms.RandomHorizontalFlip(p=0.4),
                 transforms.ToTensor()
             ])
     train_set = datasets.ImageFolder(datadir,transform=train_transforms)
