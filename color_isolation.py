@@ -7,8 +7,7 @@ import time
 def colorIsolationTransform(path,color):
     t0=time.time()
     img=cv2.imread(path)
-    img=cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     
     if color=='orange':
         lower = np.array([0, 50,100])
@@ -76,8 +75,7 @@ def colorIsolationTransform(path,color):
     
     
 def colorIsolationPreprocess(img,color):
-    img=cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     
     if color=='orange':
         lower = np.array([0, 50,100])
@@ -141,4 +139,18 @@ def colorIsolationPreprocess(img,color):
     
     return mask
     
-    
+def colorIsolationPreprocess2(img,color):
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    if color=='red':
+        lower1 = np.array([170, 100,100])
+        upper1 = np.array([180, 255, 255])
+        
+        lower2 = np.array([0,100,100])
+        upper2 = np.array([5,255,255])
+        
+        mask1 = cv2.inRange(hsv, lower1, upper1)
+        mask2 =cv2.inRange(hsv, lower2, upper2)
+        mask_first=mask1+mask2
+        mask_first[0:90,0:224]=0
+        
+    return mask_first
